@@ -34,10 +34,16 @@ print(app.df)
 
 @app.route('/', methods=['GET'])
 def get_root():
+    '''
+        Root route that returns the index page
+    '''
     return render_template('index.html'), 200
 
 @app.route('/data', methods=['GET'])
 def get_data():
+    '''
+        Grab data specified via query parameters to fill out our chart data
+    '''
     ls_year = request.args.getlist('n')
     ls_col = request.args.getlist('m')
 
