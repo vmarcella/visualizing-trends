@@ -36,8 +36,8 @@ print(app.df)
 def get_root():
     return render_template('index.html'), 200
 
-@app.route('/data', methods=['GET'])
-def get_data():
+@app.route('/time_series', methods=['GET'])
+def get_time_series_data():
     ls_year = request.args.getlist('n')
     ls_col = request.args.getlist('m')
 
@@ -46,7 +46,7 @@ def get_data():
     df_new['month'] = pd.to_datetime(df_new['month'])
     df_new = df_new.sort_values(by=['month'])
 
-    return jsonify(df_new.to_json()), 200
+    return df_new.to_json(), 200
 
 
 
