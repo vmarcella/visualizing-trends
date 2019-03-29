@@ -1,0 +1,32 @@
+:root {
+    font-family: 'Roboto', sans-serif;
+}
+.container {
+    width: 70%;
+    margin: auto;
+}
+
+.container h1 {
+    text-align: center;
+}
+
+.charts {
+    width: 100%;
+    display: flex;
+    direction: row;
+}
+
+.chart {
+    width: 70%;
+}
+
+.control {
+    display: flex;
+    width: 30%;
+}
+
+.control-date {
+    display:flex;
+    direction: row;
+    height: 50px;
+}
