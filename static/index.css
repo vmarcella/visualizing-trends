@@ -1,0 +1,47 @@
+:root {
+    font-family: 'Roboto', sans-serif;
+}
+.container {
+    width: 100%;
+    margin: auto;
+}
+
+.container h1 {
+    text-align: center;
+    border: 
+}
+
+.charts {
+    width: 100%;
+    display: flex;
+    direction: row;
+}
+
+.chart {
+    width: 70%;
+}
+
+.control {
+    width: 30%;
+}
+
+.control-date {
+    display:flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    align-content: center;
+    width: 100%;
+    margin-right: 0px;
+    height: 30px;
+}
+
+.underlined-input {
+    border: none;
+    border-bottom: 2px solid red;
+    text-align: center;
+}
+
+.control-date > .underlined-input {
+    padding-left: 15px;
+}
