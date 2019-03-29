@@ -23,6 +23,7 @@
 
 .control {
     width: 30%;
+    padding: 20px;
 }
 
 .control-date {
@@ -30,7 +31,6 @@
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
-    align-content: center;
     width: 100%;
     margin-right: 0px;
     height: 30px;
@@ -44,4 +44,43 @@
 
 .control-date > .underlined-input {
     padding-left: 15px;
+}
+
+.control-column > ul {
+    margin: 0;
+    padding: 0;
+}
+
+.control-column > ul > li {
+   cursor: pointer;
+   position: relative;
+   padding: 12px 8px 12px 40px;
+   list-style-type: none;
+   background: #eee;
+   font-size: 1em;
+   transition: 0.2s;
+
+   user-select: none;
+}
+
+.control-column > ul > li:hover {
+    background: #ddd;
+}
+
+.control-column > ul > li.checked {
+    background: #888;
+    color: #fff;
+}
+
+.control-column > ul > li.checked::before {
+    content: '';
+    position: absolute;
+    border-color: #fff;
+    border-style: solid;
+    border-width: 0 2px 2px 0;
+    top 10px;
+    left: 16px;
+    transform: rotate(45deg);
+    height: 15px;
+    width: 7px;
 }

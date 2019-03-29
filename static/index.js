@@ -22,4 +22,12 @@ function getChartData() {
         .catch(err => console.error(err))
 }
 
+const columnList = document.querySelector('.control-column');
+
+columnList.addEventListener('click', (e) => {
+    if (e.target.tagName === 'LI') {
+        e.target.classList.toggle('checked');
+    }
+})
+
 getChartData();
