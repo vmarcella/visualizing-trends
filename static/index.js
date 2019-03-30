@@ -22,12 +22,14 @@ function getChartData() {
         .catch(err => console.error(err))
 }
 
+// Grab all the columns
 const columnList = document.querySelector('.control-column');
 
+// Update the lists to be checked
 columnList.addEventListener('click', (e) => {
     if (e.target.tagName === 'LI') {
         e.target.classList.toggle('checked');
     }
-})
+});
 
 getChartData();
