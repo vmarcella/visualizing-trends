@@ -1,11 +1,11 @@
-'''
+"""
     Visualizing diets over the course of time
-'''
+"""
 from functools import reduce
-from flask import Flask, request, jsonify, render_template
-import matplotlib.pyplot as plt
-import pandas as pd
 
+# import matplotlib.pyplot as plt
+import pandas as pd
+from flask import Flask, render_template, request
 
 # curl curl "http://0.0.0.0:3000/?n=2004&n=2005&m=diet&m=gym"
 # https://www.datacamp.com/community/tutorials/time-series-analysis-tutorial
@@ -13,8 +13,8 @@ import pandas as pd
 app = Flask(__name__)
 
 # Attach our dataframe to our app
-app.df = pd.read_csv('multiTimeline.csv', skiprows=1)
-app.df.columns = ['month', 'diet', 'gym', 'finance']
+app.df = pd.read_csv("multiTimeline.csv", skiprows=1)
+app.df.columns = ["month", "diet", "gym", "finance"]
 print(app.df)
 
 # df_new = df[(df['month'].str.contains('2005'))][['month', 'diet']]
@@ -32,26 +32,42 @@ print(app.df)
 # print(df_new.to_html())
 
 
-@app.route('/', methods=['GET'])
+@app.route("/", methods=["GET"])
 def get_root():
-    '''
+    """
         Root route that returns the index page
-    '''
-    return render_template('index.html'), 200
+    """
+    return render_template("index.html"), 200
 
-@app.route('/time_series', methods=['GET'])
+
+@app.route("/time_series", methods=["GET"])
 def get_time_series_data():
-    ls_year = request.args.getlist('n')
-    ls_col = request.args.getlist('m')
+    """
+        Return the necessary data to create a time series
+    """
+    # Grab the requested years and columns from the query arguments
+    ls_year = [int(year) for year in request.args.getlist("n")]
+    ls_col = request.args.getlist("m")
 
-    df_new = app.df[(reduce(lambda a, b: a | b, (app.df['month'].str.contains(s) for s in ls_year)))][['month'] + ls_col]
+    # Generate a list of all the months we need to get
+    all_months = [str(month) for month in range(min(ls_year), max(ls_year) + 1)]
 
-    df_new['month'] = pd.to_datetime(df_new['month'])
-    df_new = df_new.sort_values(by=['month'])
+    # Grab all of the wanted months by figuring out
+    wanted_months = reduce(
+        lambda a, b: a | b,
+        (app.df["month"].str.contains(month) for month in all_months),
+    )
 
+    # Create a new dataframe from the one that
+    df_new = app.df[wanted_months][["month"] + ls_col]
+
+    # Convert all string dates into datetime objects and then sort them
+    df_new["month"] = pd.to_datetime(df_new["month"])
+    df_new = df_new.sort_values(by=["month"])
+
+    # Return the dataframe as json
     return df_new.to_json(), 200
 
 
-
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=3000)
+    app.run(host="0.0.0.0", port=3000)
