@@ -66,8 +66,6 @@ function updateChart() {
     // Grab all the checked columns
     for (let i = 0, length = items.length; i < length; i += 1) {
         if (items[i].classList.contains('checked')) {
-            
-            console.log(items[i].innerText)
             queryString += "&m=" + items[i].innerText.toLowerCase();
         }
     }

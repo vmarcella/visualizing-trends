@@ -85,6 +85,10 @@
     width: 7px;
 }
 
+.control-column-item > input {
+    float: right;
+}
+
 .control-button {
     margin-top: 20px;
     text-align: center;
@@ -108,32 +112,11 @@
 
 .ct-series-a .ct-line,
 .ct-series-a .ct-point {
-    stroke: blue;
+    stroke: blue !important;
 }
 
 .ct-series-a .ct-line,
 .ct-series-a .ct-point {
     stroke: red;
-}
-
-.ct-legend {
-    display: flex;
-    list-style-type: none;
-}
-
-.ct-legend li {
-    position: relative;
-    padding-left: 23px;
-    margin-bottom: 3px;
-}
-
-.ct-legend li:before {
-    width: 12px;
-    height: 12px;
-    position: absolute;
-    left: 0;
-    content: '';
-    border: 3px solid transparent;
-    border-raduis: 2px;
 }
 
