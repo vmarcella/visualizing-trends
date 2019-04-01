@@ -57,6 +57,7 @@ def get_time_series_data():
     wanted_months = reduce(
         lambda a, b: a | b, (app.df["month"].str.contains(year) for year in all_years)
     )
+
     # Create a new dataframe from the one that
     df_new = app.df[wanted_months][["month"] + ls_col]
     print(df_new)

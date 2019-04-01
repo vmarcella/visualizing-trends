@@ -1,7 +1,7 @@
 const chart = new Chartist.Line('.ct-chart', {})
 
 // Grab all the columns
-const columnList = document.querySelector('.control-column > ul');
+const columnList = document.querySelector('.control-column ul');
 
 // Update the lists to be checked
 columnList.addEventListener('click', (e) => {
@@ -66,8 +66,9 @@ function updateChart() {
     // Grab all the checked columns
     for (let i = 0, length = items.length; i < length; i += 1) {
         if (items[i].classList.contains('checked')) {
-            console.log(items[i].textContent)
-            queryString += "&m=" + items[i].textContent.toLowerCase()
+            
+            console.log(items[i].innerText)
+            queryString += "&m=" + items[i].innerText.toLowerCase();
         }
     }
     
