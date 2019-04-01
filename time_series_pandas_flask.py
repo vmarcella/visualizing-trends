@@ -50,16 +50,16 @@ def get_time_series_data():
     ls_col = request.args.getlist("m")
 
     # Generate a list of all the months we need to get
-    all_months = [str(month) for month in range(min(ls_year), max(ls_year) + 1)]
+    print(min(ls_year), max(ls_year))
+    all_years = [str(year) for year in range(min(ls_year), max(ls_year) + 1)]
 
     # Grab all of the wanted months by figuring out
     wanted_months = reduce(
-        lambda a, b: a | b,
-        (app.df["month"].str.contains(month) for month in all_months),
+        lambda a, b: a | b, (app.df["month"].str.contains(year) for year in all_years)
     )
-
     # Create a new dataframe from the one that
     df_new = app.df[wanted_months][["month"] + ls_col]
+    print(df_new)
 
     # Convert all string dates into datetime objects and then sort them
     df_new["month"] = pd.to_datetime(df_new["month"])
