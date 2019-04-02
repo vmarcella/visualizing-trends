@@ -4,10 +4,12 @@ const lines = ["a", "b", "c"]
 
 // Grab all the columns
 const columnList = document.querySelector('.control-column ul');
-const colorInputs = columnList.children
+const columns = columnList.children
 
-for (let i = 0, length = colorInputs.length; i < length; i += 1) {
-    colorInputs[i].children[0].addEventListener('input', updateLines);
+for (let i = 0, length = columns.length; i < length; i += 1) {
+    columns[i].children[0].addEventListener('input', function(){
+        updateLines(columns)
+    });
 }
 
 // Update the lists to be checked
