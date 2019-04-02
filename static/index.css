@@ -1,14 +1,19 @@
 :root {
     font-family: 'Roboto', sans-serif;
 }
+
+body {
+    max-height: 100vh;
+    margin-top: 0;
+}
 .container {
     width: 100%;
     margin: auto;
+    max-height: 100%;
 }
 
 .container h1 {
     text-align: center;
-    border: 
 }
 
 .charts {

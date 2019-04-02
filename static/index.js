@@ -1,7 +1,14 @@
 const chart = new Chartist.Line('.ct-chart', {})
 
+const lines = ["a", "b", "c"]
+
 // Grab all the columns
 const columnList = document.querySelector('.control-column ul');
+const colorInputs = columnList.children
+
+for (let i = 0, length = colorInputs.length; i < length; i += 1) {
+    colorInputs[i].children[0].addEventListener('input', updateLines);
+}
 
 // Update the lists to be checked
 columnList.addEventListener('click', (e) => {
@@ -38,7 +45,9 @@ function getChartData(queryString = "?n=2004&n=2005&m=diet&m=gym") {
                 }),
                 series: seriesData,
             }
-            chart.update(chartData)
+            chart.update(chartData);
+            
+            updateLines(columnList.children);
         })
         .catch(err => console.error(err))
 }
@@ -63,6 +72,7 @@ function updateChart() {
         }
     }
 
+    let currLine = 0;
     // Grab all the checked columns
     for (let i = 0, length = items.length; i < length; i += 1) {
         if (items[i].classList.contains('checked')) {
@@ -71,6 +81,24 @@ function updateChart() {
     }
     
     getChartData(queryString);
+}
+
+function updateLines(items) {
+    let currLine = 0;
+    // Grab all the checked columns
+    for (let i = 0, length = items.length; i < length; i += 1) {
+        // Only color the checked off lines
+        if (items[i].classList.contains('checked')) {
+            currentLine = document.querySelector('.ct-series-' + lines[currLine] + ' .ct-line');
+            currentPoints = document.querySelectorAll('.ct-series-' + lines[currLine] + ' .ct-point');
+            currentLine.style.cssText = "stroke: " + items[i].children[0].value + "!important;";
+
+            for (let j = 0, length = currentPoints.length; j < length; j += 1) {
+                currentPoints[j].style.cssText = "stroke: " + items[i].children[0].value + "!important;";
+            }
+            currLine += 1
+        }
+    }
 }
 
 getChartData();
