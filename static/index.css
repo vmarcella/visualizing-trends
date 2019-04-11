@@ -24,6 +24,10 @@ body {
 
 .chart {
     width: 70%;
+    padding-bottom: 20px;
+}
+.ct-chart {
+    height: 80%;
 }
 
 .control {
@@ -115,13 +119,4 @@ body {
     background: #888;
 }
 
-.ct-series-a .ct-line,
-.ct-series-a .ct-point {
-    stroke: blue !important;
-}
-
-.ct-series-a .ct-line,
-.ct-series-a .ct-point {
-    stroke: red;
-}
 
