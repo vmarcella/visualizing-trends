@@ -28,6 +28,8 @@ and port 3000 in production mode.
 
 ## Resources
 [Chartist.js](https://gionkunz.github.io/chartist-js/)
+
 [Pandas](https://pandas.pydata.org/)
+
 [Flask](http://flask.pocoo.org/) 
 
