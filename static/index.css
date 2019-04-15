@@ -16,7 +16,7 @@ body {
     text-align: center;
 }
 
-.charts {
+.data-area {
     width: 100%;
     display: flex;
     direction: row;
@@ -33,6 +33,7 @@ body {
 .control {
     width: 30%;
     padding: 20px;
+    margin-right: 0;
 }
 
 .control-date {

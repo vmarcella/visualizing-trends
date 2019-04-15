@@ -25,7 +25,6 @@ function getChartData(queryString = "?n=2004&n=2005&m=diet&m=gym") {
     .get("/time_series" + queryString)
     .then(res => {
       let timeSeries = res.data;
-      console.log(res.data);
 
       const seriesData = [];
       const series = ["diet", "gym", "finance"];
@@ -33,14 +32,14 @@ function getChartData(queryString = "?n=2004&n=2005&m=diet&m=gym") {
         const currSeries = series[i];
 
         // Check if the current series exist
-        if (typeof res.data[currSeries] !== "undefined") {
-          const data = Object.values(res.data[currSeries]);
+        if (typeof timeSeries[currSeries] !== "undefined") {
+          const data = Object.values(timeSeries[currSeries]);
           seriesData.push(data);
         }
       }
 
       const chartData = {
-        labels: Object.values(res.data.month).map(utc => {
+        labels: Object.values(timeSeries.month).map(utc => {
           const date = new Date(0);
           date.setUTCMilliseconds(Number(utc));
           return `${date.getFullYear()}-${date.getMonth()}`;
