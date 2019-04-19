@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    command: python time_series_pandas_flask.py
+    volumes:
+      - .:/code
+    ports:
+      - "3000:3000"
