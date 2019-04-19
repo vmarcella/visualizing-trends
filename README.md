@@ -13,7 +13,8 @@ The backend is built and powered by flask & pandas. (python 3.7.3)
 1. To demonstrate using chartist.js for plotting data dynamically via a web application
 2. Connect my data science, Frontend web, and Backend web skills together.
 
-## How to run
+## How to Install/run
+#### Manually
 To get started, download this repository and install all the pip requirements utilizing:
 ```bash
 pip install -r requirements.txt
@@ -22,9 +23,15 @@ pip install -r requirements.txt
 ```bash
 python3 time_series_pandas_flask.py
 ```
-
 to run the server which will allow you to access the application on port 5000 in debug mode
 and port 3000 in production mode.
+
+#### Via docker
+```bash
+git clone git@github.com:C3NZ/visualizing_diet.git
+cd visualizing_diet
+docker-compose up
+```
 
 ## Resources
 [Chartist.js](https://gionkunz.github.io/chartist-js/)
