@@ -27,9 +27,34 @@ to run the server which will allow you to access the application on port 5000 in
 and port 3000 in production mode.
 
 #### Via docker
+Assuming you have the project cloned locally and are using this for local use...
+
+Create a file called `sentry.env` and within it place (Use your own sentry secret key, and other variables):
+```
+# OPTIONAL: Include if you're using email
+SENTRY_EMAIL_HOST=smtp
+
+SENTRY_POSTGRES_HOST=sentry-postgres
+SENTRY_DB_USER=sentry
+SENTRY_DB_PASSWORD=sentry
+SENTRY_REDIS_HOST=sentry-redis
+
+SENTRY_SECRET_KEY=
+```
+
+and if you ARE using email, create an env file with:
+```
+GMAIL_USERNAME=
+GMAIL_PASSWORD=
+```
+
+then you can run:
 ```bash
-git clone git@github.com:C3NZ/visualizing_diet.git
-cd visualizing_diet
+sh sentry-setup.sh
+```
+
+and then when you're done or would like to run it again:
+```bash
 docker-compose up
 ```
 
