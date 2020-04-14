@@ -12,22 +12,23 @@ for (let i = 0, length = columns.length; i < length; i += 1) {
   });
 }
 
-// Update the lists to be checked
-columnList.addEventListener("click", e => {
-  if (e.target.tagName === "LI") {
-    e.target.classList.toggle("checked");
+// Add an event listener to all selectable trends.
+columnList.addEventListener("click", event => {
+  if (event.target.tagName === "LI") {
+    event.target.classList.toggle("checked");
   }
 });
 
 // Get the initial chart data
-function getChartData(queryString = "?n=2004&n=2005&m=diet&m=gym") {
+function getChartData(queryString = "?years=2004&years=2005&trends=diet&trends=gym") {
   axios
     .get("/time_series" + queryString)
     .then(res => {
       let timeSeries = res.data;
 
-      const seriesData = [];
       const series = ["diet", "gym", "finance"];
+      const seriesData = [];
+
       for (let i = 0, length = series.length; i < length; i += 1) {
         const currSeries = series[i];
 
@@ -67,9 +68,9 @@ function updateChart() {
 
     // Start or add to the query string
     if (typeof queryString === "undefined") {
-      queryString = "?n=" + time;
+      queryString = "?years=" + time;
     } else {
-      queryString += "&n=" + time;
+      queryString += "&years=" + time;
     }
   }
 
@@ -77,7 +78,7 @@ function updateChart() {
   // Grab all the checked columns
   for (let i = 0, length = items.length; i < length; i += 1) {
     if (items[i].classList.contains("checked")) {
-      queryString += "&m=" + items[i].innerText.toLowerCase();
+      queryString += "&trends=" + items[i].innerText.toLowerCase();
     }
   }
 
