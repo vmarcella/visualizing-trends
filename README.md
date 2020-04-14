@@ -21,7 +21,7 @@ pip install -r requirements.txt
 ```
 
 ```bash
-python3 time_series_pandas_flask.py
+python3 app.py
 ```
 to run the server which will allow you to access the application on port 5000 in debug mode
 and port 3000 in production mode.
