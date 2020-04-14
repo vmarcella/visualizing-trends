@@ -3,17 +3,17 @@ const chart = new Chartist.Line(".ct-chart", {});
 const lines = ["a", "b", "c"];
 
 // Grab all the columns
-const columnList = document.querySelector(".control-column ul");
-const columns = columnList.children;
+const trendList = document.querySelector(".control-column ul");
+const trends = trendList.children;
 
-for (let i = 0, length = columns.length; i < length; i += 1) {
-  columns[i].children[0].addEventListener("input", function() {
-    updateLines(columns);
+for (let i = 0, length = trends.length; i < length; i += 1) {
+  trends[i].children[0].addEventListener("input", function() {
+    updateLines(trends);
   });
 }
 
 // Add an event listener to all selectable trends.
-columnList.addEventListener("click", event => {
+trendList.addEventListener("click", event => {
   if (event.target.tagName === "LI") {
     event.target.classList.toggle("checked");
   }
@@ -30,26 +30,26 @@ function getChartData(queryString = "?years=2004&years=2005&trends=diet&trends=g
       const seriesData = [];
 
       for (let i = 0, length = series.length; i < length; i += 1) {
-        const currSeries = series[i];
+        const currentSeries = series[i];
 
-        // Check if the current series exist
-        if (typeof timeSeries[currSeries] !== "undefined") {
-          const data = Object.values(timeSeries[currSeries]);
+        // Ensure that the current series is within the time series.
+        if (typeof timeSeries[currentSeries] !== "undefined") {
+          const data = Object.values(timeSeries[currentSeries]);
           seriesData.push(data);
         }
       }
 
       const chartData = {
-        labels: Object.values(timeSeries.month).map(utc => {
-          const date = new Date(0);
-          date.setUTCMilliseconds(Number(utc));
+        labels: Object.values(timeSeries.month).map(datetime => {
+          const date = new Date(datetime);
           return `${date.getFullYear()}-${date.getMonth()}`;
         }),
         series: seriesData
       };
-      chart.update(chartData);
 
-      updateLines(columnList.children);
+      // Update the chart and line colors.
+      chart.update(chartData);
+      updateLines(trendList.children);
     })
     .catch(err => console.error(err));
 }
@@ -57,7 +57,6 @@ function getChartData(queryString = "?years=2004&years=2005&trends=diet&trends=g
 // Updating the chart data
 function updateChart() {
   let queryString;
-  const items = columnList.children;
 
   // Get both input fields from the time frame section
   const timeFrames = document.querySelectorAll(".control-date > input");
@@ -74,11 +73,10 @@ function updateChart() {
     }
   }
 
-  let currLine = 0;
   // Grab all the checked columns
-  for (let i = 0, length = items.length; i < length; i += 1) {
-    if (items[i].classList.contains("checked")) {
-      queryString += "&trends=" + items[i].innerText.toLowerCase();
+  for (let i = 0, length = trends.length; i < length; i += 1) {
+    if (trends[i].classList.contains("checked")) {
+      queryString += "&trends=" + trends[i].innerText.toLowerCase();
     }
   }
 
@@ -87,26 +85,24 @@ function updateChart() {
 
 // Update the lines drawn with the correct colors
 function updateLines(items) {
-  let currLine = 0;
+  let lineNumber = 0;
   // Grab all the checked columns
   for (let i = 0, length = items.length; i < length; i += 1) {
     // Only color the checked off lines
     if (items[i].classList.contains("checked")) {
-      currentLine = document.querySelector(
-        ".ct-series-" + lines[currLine] + " .ct-line"
-      );
-      currentPoints = document.querySelectorAll(
-        ".ct-series-" + lines[currLine] + " .ct-point"
-      );
-      currentLine.style.cssText =
-        "stroke: " + items[i].children[0].value + "!important;";
+      currentLine = 
+          document.querySelector(`.ct-series-${lines[lineNumber]} .ct-line`);
+      currentPoints = 
+          document.querySelectorAll(`.ct-series-${lines[lineNumber]} .ct-point`);
+      currentLine.style.cssText = 
+          `stroke: ${items[i].children[0].value} !important;`;
 
       // Color every point
       for (let j = 0, length = currentPoints.length; j < length; j += 1) {
-        currentPoints[j].style.cssText =
-          "stroke: " + items[i].children[0].value + "!important;";
+        currentPoints[j].style.cssText = 
+            `stroke: ${items[i].children[0].value} !important;`;
       }
-      currLine += 1;
+      lineNumber += 1;
     }
   }
 }
