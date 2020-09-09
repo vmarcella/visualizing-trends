@@ -31,7 +31,8 @@ def get_time_series_data():
     """
     Return the necessary data to create a time series
     """
-    # Grab the requested years and columns from the query arguments
+    # Grab the requested years and trends from the query arguments
+    # default range is from 2004-2005 and default trends are diet and gym.
     range_of_years = [int(year) for year in request.args.getlist("years")]
     trends = request.args.getlist("trends")
 
@@ -39,18 +40,19 @@ def get_time_series_data():
     min_year = min(range_of_years)
     max_year = max(range_of_years)
 
-    wanted_data = app.loaded_csv[
+    # Grab all of the data specified from start to stop range.
+    selected_date_range = app.loaded_csv[
         (app.loaded_csv["month"] >= datetime.datetime(min_year, 1, 1)) &
         (app.loaded_csv["month"] <= datetime.datetime(max_year, 12, 31))
     ]
 
     # Slice the DF to include only the trends we want and then to sort our
     # dataframe by those trends.
-    wanted_data = wanted_data[["month"] + trends]
-    wanted_data = wanted_data.sort_values(by=["month"])
+    requested_trend_data = selected_date_range[["month"] + trends]
+    requested_trend_data = requested_trend_data.sort_values(by=["month"])
 
     # Return the dataframe as json
-    return wanted_data.to_json(), 200
+    return requested_trend_data.to_json(), 200
 
 
 if __name__ == "__main__":
